@@ -1,0 +1,61 @@
+@media screen and (max-width: 991px) {
+  :root {
+    --left-col-widht: 100px;
+  }
+
+  /* Layout  */
+  main {
+    padding: 0;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Left  */
+  .left {
+    width: var(--left-col-widht);
+  }
+
+  .header-contacts .icons-header,
+  section.notifications,
+  .input-search-chat,
+  .info-profile, 
+  footer form button,
+  .footer-microphone {
+    display: none;
+  }
+
+  #chats {
+    height: 100%;
+  }
+
+  /* Right  */
+  .right {
+    width: 90%;
+  }
+
+  .message {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .left {
+    width: 0;
+  }
+
+  .right {
+    width: 100%;
+  }
+
+  .message {
+    max-width: 400px;
+  }
+  
+  footer form i {
+    font-size: 2.5rem;
+    color: #B1B1B1;
+  }
+}

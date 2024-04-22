@@ -1,0 +1,290 @@
+/* Mobile firt  */
+:root {
+  --left-col-widht: 0px;
+  --footer-height: 80px;
+  --header-height: 100px;
+  --notification: 80px;
+  --seach: 60px;
+}
+
+/* Reset  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Utilities  */
+.inline-block {
+  display: block;
+}
+
+/* flex */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-ite-c {
+  align-items: center;
+}
+
+.gap-20px {
+  gap: 20px;
+}
+
+/* Text  */
+.text-dec-und {
+  text-decoration: underline;
+  color: grey;
+}
+
+/* img  */
+.profile-img {
+  width: 70px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Common  */
+/* Layout */
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(
+    to bottom,
+    #009688 0%,
+    #009688 15%,
+    #D9DBD5 15%,
+    #D9DBD5 100%
+  );
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Left Col  */
+.left-col {
+  width: var(--left-col-widht);
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Notification  */
+.notification {
+  display: none;
+  height: var(--notification);
+  flex-shrink: 0;
+  background-color: #8EDAFC;
+  padding: 0 20px;
+}
+
+.notification i.inline-block {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  color: #8EDAFC;
+}
+
+.notification .text-notification {
+  font-size: 1.2rem;
+}
+
+/* Seach  */
+.seach {
+  display: none;
+  height: var(--seach);
+  flex-shrink: 0;
+  background-color: #FAFAFA;
+  padding: 10px;
+}
+
+.seach input {
+  flex-grow: 1;
+  padding: 14px;
+  background-color: white;
+  border: none;
+  margin-left: -1px;
+}
+
+.seach > i {
+  font-size: 1.5rem;
+  background-color: white;
+  padding: 10px;
+}
+
+/* Contats chat  */
+.contats-chat {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.contats-chat div.chat {
+  background-color: white;
+  position: relative;
+  padding: 20px;
+  border: 1px solid rgb(181, 181, 181);
+  transition: background-color 0.15s;
+}
+
+.contats-chat div.chat:hover {
+  background-color: rgb(207, 207, 207);
+  cursor: pointer;
+}
+
+.chat-description {
+  display: none;
+}
+
+.contats-chat .chat-description span {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.contats-chat .chat-description time {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* Right Col  */
+.right-col {
+  width: calc(100% - (var(--left-col-widht)));
+  height: 100%;
+}
+
+/* Header-Col */
+.header-col {
+  background-color: #EAEAEA;
+  width: 100%;
+  height: var(--header-height);
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+
+.info-profile,
+.icon-header {
+  height: 100%;
+}
+
+.userid-name {
+  font-size: 1.8rem;
+}
+
+.description-profile > time {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.left-col .icon-header {
+  display: none;
+}
+
+.icon-header > i {
+  font-size: 1.5rem;
+  color: #B1B1B1;
+}
+
+/* Main-col  */
+.main-col {
+  background-image: url(../img/mine.jpg);
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 60px 40px;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.main-col .message p {
+  max-width: 500px;
+  padding: 20px;
+}
+
+.message-send {
+  justify-content: end;
+}
+
+.message-send p {
+  background-color: #D5F9BA;
+}
+
+.message-received p {
+  background-color: white;
+}
+
+.hover-message {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+}
+
+
+.hover-message .inline-block {
+  padding: 10px;
+}
+
+
+.container-message {
+  position: relative;
+}
+
+.hover-message {
+  opacity: 0;
+}
+
+.container-message:hover .hover-message {
+  opacity: 1;
+}
+
+/* Footer-col  */
+.footer-col {
+  height: var(--footer-height);
+  flex-shrink: 0;
+  padding: 0 20px;
+  background-color: #F3EEEA;
+}
+
+.footer-col form {
+  height: 100%;
+}
+
+.footer-col button {
+  display: none;
+  border: none;
+  background-color: transparent;
+}
+
+.footer-col button i {
+  font-size: 1.8rem;
+  color: #6B7376;
+  padding: 30px;
+}
+
+.footer-col form input {
+  flex-grow: 1;
+  padding: 15px;
+  font-size: 1.5rem;
+}
