@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boolzapp Layout</title>
   <!-- fontawwsome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
   <!-- Custom Style  -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Responsive -->
@@ -14,6 +17,7 @@
   <!-- Vue JS  -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
+
 <body>
   <div id="app" class="wrapper">
     <div class="app-container flex">
@@ -50,7 +54,7 @@
 
         <!-- Contats-chat -->
         <div class="contats-chat">
-          <div v-for="curContact in contacts" class="chat flex align-ite-c gap-20px">
+          <div @click="indexToClick = index" v-for="(curContact, index) in contacts" class="chat flex align-ite-c gap-20px">
             <img class="profile-img" :src="`img/avatar${curContact.avatar}.jpg`" alt="">
             <div class="chat-description">
               <div class="userid-name">{{ curContact.name }}</div>
@@ -69,9 +73,9 @@
         <!-- Header  -->
         <header class="header-col flex space-between">
           <div class="info-profile flex align-ite-c gap-20px">
-            <img class="profile-img" src="img/avatar_1.jpg" alt="">
+            <img class="profile-img" :src="`img/avatar${contacts[indexToClick].avatar}.jpg`" alt="">
             <div class="description-profile">
-              <div class="userid-name">Michele</div>
+              <div class="userid-name">{{ contacts[indexToClick].name}}</div>
               <time>Ultimo accesso oggi alle 16:26</time>
             </div>
           </div>
@@ -85,22 +89,29 @@
 
         <!-- Main  -->
         <main class="main-col">
-          <div class="message message-send">
+          <div v-for="curMes in contacts[indexToClick].messages" :class="curMes.status === 'sent' ? 'message-send' : 'message-received'" class="message">
             <div class="container-message">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi maxime magni voluptate saepe. Voluptatem dolorum animi harum consequatur error neque, vero quam asperiores repudiandae amet, sed reiciendis perspiciatis explicabo facilis?
-                Rerum, mollitia. Illo modi dolores nemo repudiandae doloremque inventore, temporibus provident debitis excepturi quod sint obcaecati officia consequuntur delectus nostrum, iste numquam sunt aut magni dolore cupiditate reprehenderit molestias quae!</p>
+              <p>{{curMes.message}}</p>
               <div class="hover-message">
                 <span class="inline-block">Info messaggio</span>
                 <span class="inline-block">Cancella messaggio</span>
               </div>
             </div>
-           
-
           </div>
-          <div class="message message-received">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi maxime magni voluptate saepe. Voluptatem dolorum animi harum consequatur error neque, vero quam asperiores repudiandae amet, sed reiciendis perspiciatis explicabo facilis?
-            Rerum, mollitia. Illo modi dolores nemo repudiandae doloremque inventore, temporibus provident debitis excepturi quod sint obcaecati officia consequuntur delectus nostrum, iste numquam sunt aut magni dolore cupiditate reprehenderit molestias quae!</p>
-          </div>
+          <!-- <div class="message message-received">
+            <div class="container-message">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi maxime magni voluptate saepe.
+                Voluptatem dolorum animi harum consequatur error neque, vero quam asperiores repudiandae amet, sed
+                reiciendis perspiciatis explicabo facilis?
+                Rerum, mollitia. Illo modi dolores nemo repudiandae doloremque inventore, temporibus provident debitis
+                excepturi quod sint obcaecati officia consequuntur delectus nostrum, iste numquam sunt aut magni dolore
+                cupiditate reprehenderit molestias quae!</p>
+              <div class="hover-message">
+                <span class="inline-block">Info messaggio</span>
+                <span class="inline-block">Cancella messaggio</span>
+              </div>
+            </div>
+          </div> -->
         </main>
         <!-- /Main  -->
 
@@ -123,4 +134,5 @@
 
   <script src="js/script.js"></script>
 </body>
+
 </html>
