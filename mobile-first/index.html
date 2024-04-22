@@ -98,29 +98,15 @@
               </div>
             </div>
           </div>
-          <!-- <div class="message message-received">
-            <div class="container-message">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi maxime magni voluptate saepe.
-                Voluptatem dolorum animi harum consequatur error neque, vero quam asperiores repudiandae amet, sed
-                reiciendis perspiciatis explicabo facilis?
-                Rerum, mollitia. Illo modi dolores nemo repudiandae doloremque inventore, temporibus provident debitis
-                excepturi quod sint obcaecati officia consequuntur delectus nostrum, iste numquam sunt aut magni dolore
-                cupiditate reprehenderit molestias quae!</p>
-              <div class="hover-message">
-                <span class="inline-block">Info messaggio</span>
-                <span class="inline-block">Cancella messaggio</span>
-              </div>
-            </div>
-          </div> -->
         </main>
         <!-- /Main  -->
 
         <!-- Footer  -->
         <footer class="footer-col">
-          <form action="" class="flex align-ite-c">
+          <form action="" class="flex align-ite-c" @submit.prevent>
             <button><i class="fa-regular fa-face-smile"></i></button>
 
-            <input aria-label="Scrivi un messaggio" type="text" placeholder="Scrivi un messaggio">
+            <input @keyup.enter.prevent="addMessege" aria-label="Scrivi un messaggio" type="text" placeholder="Scrivi un messaggio" v-model.trim="newMessageToSent">
 
             <button><i class="footer-microphone fa-solid fa-microphone"></i></button>
           </form>

@@ -4,6 +4,9 @@ createApp({
   data() {
     return {
       indexToClick: 0,
+      newMessageToSent: '',
+      isSend: false,
+      newMessageToReceived: 'Ok',
       contacts: [
         {
           name: "Michele",
@@ -172,6 +175,32 @@ createApp({
   },
   created() {},
   methods: {
+    addMessege: function() {
+      this.contacts[this.indexToClick].messages.push({
+        date: '',
+        message: this.newMessageToSent,
+        status: "sent",
+      });
+      this.newMessageToSent = '';
+      isSend = true;
+      console.log(isSend);
+
+      this.mesReceive()
+    },
+    mesReceive: function() {
+      if (isSend) {
+        setTimeout(() => {
+          this.contacts[this.indexToClick].messages.push(
+            {
+              date: "",
+              message: this.newMessageToReceived,
+              status: "received",
+            }
+          )
+          isSend = false
+        }, 1000)
+      }
+    }
   },
 }).mount("#app");
 
