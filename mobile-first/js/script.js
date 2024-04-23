@@ -7,6 +7,7 @@ createApp({
       newMessageToSent: '',
       isSend: false,
       newMessageToReceived: 'Ok',
+      seach: '',
       contacts: [
         {
           name: "Michele",
@@ -183,7 +184,6 @@ createApp({
       });
       this.newMessageToSent = '';
       isSend = true;
-      console.log(isSend);
 
       this.mesReceive()
     },
@@ -200,7 +200,19 @@ createApp({
           isSend = false
         }, 1000)
       }
+    },
+    seachChat: function() {
+      this.contacts.forEach((curChat) => {
+        const name = curChat.name.toLowerCase()
+        if(!name.includes(this.seach)) {
+             curChat.visible = false;
+        } else {
+          curChat.visible = true
+        }
+     });
     }
   },
 }).mount("#app");
+
+
 

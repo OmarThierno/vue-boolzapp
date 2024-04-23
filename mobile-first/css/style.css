@@ -136,6 +136,7 @@ img {
 .contats-chat {
   flex-grow: 1;
   overflow-y: scroll;
+  background-color: white;
 }
 
 .contats-chat div.chat {
@@ -219,7 +220,8 @@ img {
 
 .main-col .message p {
   max-width: 500px;
-  padding: 20px;
+  padding: 15px 30px;
+  border-radius: 10px;
 }
 
 .message-send {

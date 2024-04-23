@@ -48,17 +48,17 @@
         <!-- Seach -->
         <div class="seach align-ite-c">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input aria-label="search-chat" type="text" id="search-chat" placeholder="Cerca o inizia una nuova chat">
+          <input @input="seachChat" v-model.trim="seach" aria-label="search-chat" type="text" id="search-chat" placeholder="Cerca o inizia una nuova chat">
         </div>
         <!-- /Seach -->
 
         <!-- Contats-chat -->
         <div class="contats-chat">
-          <div @click="indexToClick = index" v-for="(curContact, index) in contacts" class="chat flex align-ite-c gap-20px">
-            <img class="profile-img" :src="`img/avatar${curContact.avatar}.jpg`" alt="">
+          <div @click="indexToClick = index" v-for="(curContact, index) in contacts" class="chat flex align-ite-c gap-20px" v-show="curContact.visible">
+            <img class="profile-img" :src="`img/avatar${curContact.avatar}.jpg`" :alt="`Avatar ${curContact.name}`">
             <div class="chat-description">
               <div class="userid-name">{{ curContact.name }}</div>
-              <span>Lorem ipsum, dolor sit amet</span>
+              <span>{{ curContact.messages[curContact.messages.length - 1].message }}</span>
               <time>16:30</time>
             </div>
           </div>
