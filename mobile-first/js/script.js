@@ -9,7 +9,7 @@ createApp({
       indexToClick: 0,
       newMessageToSent: '',
       isSend: false,
-      newMessageToReceived: 'Ok',
+      newMessageToReceived: '',
       seach: '',
       hoverTootips: false,
       lastDateUser: '',
@@ -195,6 +195,34 @@ createApp({
       }
     },
     mesReceive: function() {
+        const risposteWhatsApp = [
+          "Va bene!",
+          "Capito.",
+          "Certo!",
+          "Okay.",
+          "Grazie!",
+          "Perfetto!",
+          "Interessante.",
+          "Che bello!",
+          "Bello sentire quello!",
+          "Fantastico!",
+          "Beh, allora cosa facciamo?",
+          "Non vedo l'ora!",
+          "Ne parleremo più tardi.",
+          "È così?",
+          "Molto interessante!",
+          "Davvero?",
+          "Mi piace!",
+          "Giusto.",
+          "Bene, parliamone.",
+          "Che bella notizia!"
+      ];
+
+      const numRand = this.getRndInteger(1, 20);
+
+      this.newMessageToReceived = risposteWhatsApp[numRand];
+      console.log(this.newMessageToReceived)
+    
       if (isSend) {
         setTimeout(() => {
           this.contacts[this.indexToClick].messages.push(
@@ -242,6 +270,9 @@ createApp({
         }
       })
       return this.lastDateUser
+    },
+    getRndInteger: function (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
   },
 }).mount("#app");
