@@ -1,4 +1,7 @@
+// const dt = luxon.DateTime;
+// console.log(luxon.DateTime.now())
 const { createApp } = Vue;
+
 
 createApp({
   data() {
@@ -8,6 +11,8 @@ createApp({
       isSend: false,
       newMessageToReceived: 'Ok',
       seach: '',
+      hoverTootips: false,
+      lastDateUser: '',
       contacts: [
         {
           name: "Michele",
@@ -177,15 +182,17 @@ createApp({
   created() {},
   methods: {
     addMessege: function() {
-      this.contacts[this.indexToClick].messages.push({
-        date: '',
-        message: this.newMessageToSent,
-        status: "sent",
-      });
-      this.newMessageToSent = '';
-      isSend = true;
-
-      this.mesReceive()
+      if (this.newMessageToSent !== '') {
+        this.contacts[this.indexToClick].messages.push({
+          date: '',
+          message: this.newMessageToSent,
+          status: "sent",
+        });
+        this.newMessageToSent = '';
+        isSend = true;
+  
+        this.mesReceive()
+      }
     },
     mesReceive: function() {
       if (isSend) {
@@ -210,6 +217,31 @@ createApp({
           curChat.visible = true
         }
      });
+    },
+    showHover: function() {
+      this.hoverTootips = !this.hoverTootips
+    },
+    cancelMes: function(indexMesCancel) {
+      if(indexMesCancel <= this.contacts[this.indexToClick].messages.length -1) {
+        this.contacts[this.indexToClick].messages.splice(indexMesCancel, 1)
+      } else {
+        this.contacts[this.indexToClick].messages = [];
+      }
+    },
+    // showLastMes: function(curContact) {
+    //   if (curContact.messages.length !== 0) {
+    //     curContact.messages[curContact.messages.length - 1].message
+    //   } else {
+    //     return 'ciao'
+    //   }
+    // },
+    showLastDateUser: function(messagesToClicle) {
+      messagesToClicle.forEach((curMes, index) => {
+        if (curMes.status === 'received') {
+          this.lastDateUser = curMes.date;
+        }
+      })
+      return this.lastDateUser
     }
   },
 }).mount("#app");

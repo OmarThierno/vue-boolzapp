@@ -58,8 +58,10 @@
             <img class="profile-img" :src="`img/avatar${curContact.avatar}.jpg`" :alt="`Avatar ${curContact.name}`">
             <div class="chat-description">
               <div class="userid-name">{{ curContact.name }}</div>
-              <span>{{ curContact.messages[curContact.messages.length - 1].message }}</span>
-              <time>16:30</time>
+              <span v-if="curContact.messages.length !== 0">{{ curContact.messages[curContact.messages.length - 1].message }}</span>
+              <span v-else>Non ci sono messagi da leggere...</span>
+              <time v-if="curContact.messages.length !== 0">{{ curContact.messages[curContact.messages.length - 1].date }}</time>
+              <!-- <time v-else>not defind</time> -->
             </div>
           </div>
         </div>
@@ -76,7 +78,7 @@
             <img class="profile-img" :src="`img/avatar${contacts[indexToClick].avatar}.jpg`" alt="">
             <div class="description-profile">
               <div class="userid-name">{{ contacts[indexToClick].name}}</div>
-              <time>Ultimo accesso oggi alle 16:26</time>
+              <time>{{`Ultimo accesso ${showLastDateUser(contacts[indexToClick].messages)} `}}</time>
             </div>
           </div>
           <div class="icon-header flex align-ite-c  gap-20px">
@@ -89,12 +91,12 @@
 
         <!-- Main  -->
         <main class="main-col">
-          <div v-for="curMes in contacts[indexToClick].messages" :class="curMes.status === 'sent' ? 'message-send' : 'message-received'" class="message">
-            <div class="container-message">
+          <div v-for="(curMes,index) in contacts[indexToClick].messages" :class="curMes.status === 'sent' ? 'message-send' : 'message-received'" class="message">
+            <div @click="showHover" :class="{'container-message': hoverTootips}">
               <p>{{curMes.message}}</p>
               <div class="hover-message">
                 <span class="inline-block">Info messaggio</span>
-                <span class="inline-block">Cancella messaggio</span>
+                <span @click.stop="cancelMes(index)" class="inline-block">Cancella messaggio</span>
               </div>
             </div>
           </div>
@@ -108,7 +110,8 @@
 
             <input @keyup.enter.prevent="addMessege" aria-label="Scrivi un messaggio" type="text" placeholder="Scrivi un messaggio" v-model.trim="newMessageToSent">
 
-            <button><i class="footer-microphone fa-solid fa-microphone"></i></button>
+            <button v-if="newMessageToSent === ''"><i class="footer-microphone fa-solid fa-microphone"></i></button>
+            <button v-else><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </footer>
         <!-- /Footer  -->
@@ -118,6 +121,9 @@
     </div>
   </div>
 
+  <!-- Luxon -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js" defer></script>
+  <!-- custom JS  -->
   <script src="js/script.js"></script>
 </body>
 
