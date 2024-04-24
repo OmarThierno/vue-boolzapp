@@ -1,5 +1,5 @@
-// const dt = luxon.DateTime;
-// console.log(luxon.DateTime.now())
+const dt = luxon.DateTime;
+
 const { createApp } = Vue;
 
 
@@ -13,6 +13,9 @@ createApp({
       seach: '',
       hoverTootips: false,
       lastDateUser: '',
+      isWriting: false,
+      isOnline: false,
+      notification: false,
       contacts: [
         {
           name: "Michele",
@@ -181,7 +184,7 @@ createApp({
   },
   created() {},
   methods: {
-    addMessege: function() {
+    addMessage: function() {
       if (this.newMessageToSent !== '') {
         this.contacts[this.indexToClick].messages.push({
           date: '',
@@ -189,9 +192,10 @@ createApp({
           status: "sent",
         });
         this.newMessageToSent = '';
-        isSend = true;
+        this.isSend = true;
   
-        this.mesReceive()
+        this.onlineWriting()
+        // this.mesReceive()
       }
     },
     mesReceive: function() {
@@ -215,26 +219,30 @@ createApp({
           "Mi piace!",
           "Giusto.",
           "Bene, parliamone.",
-          "Che bella notizia!"
+          "Che bella notizia!",
       ];
 
-      const numRand = this.getRndInteger(1, 20);
+      const numRand = this.getRndInteger(0, 19);
+
+      const date = dt.now().toLocaleString(dt.DATETIME_SHORT_WITH_SECONDS);
+
 
       this.newMessageToReceived = risposteWhatsApp[numRand];
-      console.log(this.newMessageToReceived)
     
-      if (isSend) {
+      if (this.isSend) {
         setTimeout(() => {
           this.contacts[this.indexToClick].messages.push(
             {
-              date: "",
+              date,
               message: this.newMessageToReceived,
               status: "received",
             }
           )
-          isSend = false
+          this.isSend = false
+          this.isOnline = false;
         }, 1000)
       }
+
     },
     seachChat: function() {
       this.contacts.forEach((curChat) => {
@@ -273,9 +281,45 @@ createApp({
     },
     getRndInteger: function (min, max) {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
+    },
+    deleteAllMes() {
+      if(this.contacts[this.indexToClick].messages.length !== 0) {
+        this.contacts[this.indexToClick].messages = [];
+      } else {
+        this.contacts = [];
+      }
+    },
+    deleteChat() {
+      // this.contacts[this.indexToClick].visible = false;
+      this.contacts.splice(this.indexToClick, 1)
+      
+    },
+    changeHoverTootipsStatus() {
+      if(this.hoverTootips) {
+        setTimeout(() => {
+          this.hoverTootips = false;
+        },2000)
+      }
+    },
+    onlineWriting() {
+      setTimeout(() => {
+        this.isOnline = true;
+        setTimeout(() => {
+          this.isOnline = false;
+          this.isWriting = true;
+
+          setTimeout(() => {
+            this.isOnline = true;
+            this.isWriting = false;
+  
+            this.mesReceive()
+          }, 2000)
+        }, 2000)
+      }, 2000)
     }
   },
 }).mount("#app");
+
 
 
 

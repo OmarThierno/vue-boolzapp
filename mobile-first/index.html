@@ -36,11 +36,18 @@
         <!-- /Header  -->
 
         <!-- Notification  -->
-        <div class="notification align-ite-c gap-20px">
-          <i class="inline-block bell-slash fa-solid fa-bell-slash"></i>
+        <div v-if="!notification" class="notification align-ite-c gap-20px">
+          <i @click="notification = !notification" class="inline-block bell-slash fa-solid fa-bell-slash"></i>
           <div>
             <div class="text-notification">Ricevi notifiche di nuovi messaggi</div>
             <span class="text-dec-und">Attiva notifiche desktop</span>
+          </div>
+        </div>
+        <div v-else class="notification align-ite-c gap-20px">
+          <i @click="notification = !notification" class="inline-block fa-solid fa-bell"></i>
+          <div>
+            <div class="text-notification">Non riceverai notifiche dei messaggi</div>
+            <span class="text-dec-und">Disattiva notifiche desktop</span>
           </div>
         </div>
         <!-- /Notification  -->
@@ -54,7 +61,7 @@
 
         <!-- Contats-chat -->
         <div class="contats-chat">
-          <div @click="indexToClick = index" v-for="(curContact, index) in contacts" class="chat flex align-ite-c gap-20px" v-show="curContact.visible">
+          <div @click="indexToClick = index" v-for="(curContact, index) in contacts" class="chat flex align-ite-c gap-20px" v-show="curContact.visible || false">
             <img class="profile-img" :src="`img/avatar${curContact.avatar}.jpg`" :alt="`Avatar ${curContact.name}`">
             <div class="chat-description">
               <div class="userid-name">{{ curContact.name }}</div>
@@ -78,13 +85,22 @@
             <img class="profile-img" :src="`img/avatar${contacts[indexToClick].avatar}.jpg`" alt="">
             <div class="description-profile">
               <div class="userid-name">{{ contacts[indexToClick].name}}</div>
-              <time>{{`Ultimo accesso ${showLastDateUser(contacts[indexToClick].messages)} `}}</time>
+              <time v-if="isWriting">sta scrivendo...</time>
+              <time v-else-if="isOnline">Online</time>
+              <time v-else>{{`Ultimo accesso ${showLastDateUser(contacts[indexToClick].messages)} `}}</time>
             </div>
           </div>
           <div class="icon-header flex align-ite-c  gap-20px">
             <i class="fa-solid fa-magnifying-glass"></i>
             <i class="fa-solid fa-paperclip"></i>
-            <i class="fa-solid fa-ellipsis-vertical"></i>
+            <div @click="[showHover, changeHoverTootipsStatus]" :class="{'container-message': hoverTootips}">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+              <div>
+                <div class="hover-message">
+                  <span @click.stop="deleteAllMes" class="inline-block">Cancella tutti i messagi</span>
+                  <span @click.stop="deleteChat" class="inline-block">Cancella la chat</span>
+                </div>
+            </div>
           </div>
         </header>
         <!-- /Header  -->
@@ -92,7 +108,7 @@
         <!-- Main  -->
         <main class="main-col">
           <div v-for="(curMes,index) in contacts[indexToClick].messages" :class="curMes.status === 'sent' ? 'message-send' : 'message-received'" class="message">
-            <div @click="showHover" :class="{'container-message': hoverTootips}">
+            <div @click="[showHover, changeHoverTootipsStatus]" :class="{'container-message': hoverTootips}">
               <p>{{curMes.message}}</p>
               <div class="hover-message">
                 <span class="inline-block">Info messaggio</span>
@@ -108,10 +124,10 @@
           <form action="" class="flex align-ite-c" @submit.prevent>
             <button><i class="fa-regular fa-face-smile"></i></button>
 
-            <input @keyup.enter.prevent="addMessege" aria-label="Scrivi un messaggio" type="text" placeholder="Scrivi un messaggio" v-model.trim="newMessageToSent">
+            <input @keyup.enter.prevent="addMessage" aria-label="Scrivi un messaggio" type="text" placeholder="Scrivi un messaggio" v-model.trim="newMessageToSent">
 
             <button v-if="newMessageToSent === ''"><i class="footer-microphone fa-solid fa-microphone"></i></button>
-            <button v-else><i class="fa-solid fa-paper-plane"></i></button>
+            <button @click="addMessage" v-else><i class="fa-solid fa-paper-plane"></i></button>
           </form>
         </footer>
         <!-- /Footer  -->
@@ -122,7 +138,7 @@
   </div>
 
   <!-- Luxon -->
-  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
   <!-- custom JS  -->
   <script src="js/script.js"></script>
 </body>

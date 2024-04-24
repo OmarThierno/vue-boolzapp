@@ -191,6 +191,14 @@ img {
   font-size: 1.8rem;
 }
 
+.icon-header .hover-message {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  background-color: white;
+}
+
 .description-profile > time {
   font-size: 0.9rem;
   color: grey;
@@ -200,7 +208,7 @@ img {
   display: none;
 }
 
-.icon-header > i {
+.icon-header i {
   font-size: 1.5rem;
   color: #B1B1B1;
 }
